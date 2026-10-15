@@ -1,0 +1,73 @@
+{
+  "name": "inkpad-mvp",
+  "version": "0.1.0",
+  "description": "Stylus-first handwritten notes and PDF annotation app (Electron fallback)",
+  "type": "module",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "lint": "eslint . --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.node.json",
+    "electron:dev": "concurrently \"vite\" \"wait-on http://localhost:5173 && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 electron .\"",
+    "electron:build": "npm run build && electron-builder",
+    "tauri": "npm run electron:build",
+    "tauri:build": "npm run electron:build"
+  },
+  "dependencies": {
+    "dexie": "^4.0.8",
+    "electron": "^33.2.0",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^4.8.69",
+    "perfect-freehand": "^1.2.2",
+    "rbush": "^4.0.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^5.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@types/node": "^22.0.0",
+    "@types/rbush": "^4.0.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@vitejs/plugin-react": "^4.3.3",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.0",
+    "cross-env": "^7.0.3",
+    "electron-builder": "^25.1.8",
+    "eslint": "^9.0.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "jsdom": "^25.0.1",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10",
+    "vitest": "^2.1.4",
+    "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "com.inkpad.mvp",
+    "productName": "InkPad",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "msi"
+      ]
+    }
+  }
+}
